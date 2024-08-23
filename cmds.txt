@@ -1,1 +1,18 @@
+helm repo add jenkins https://charts.jenkins.io
+helm repo update
 
+
+helm install my-jenkins jenkins/jenkins
+
+kubectl get secret --namespace default my-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode
+
+kubectl port-forward service/my-jenkins 8080:8080
+
+
+helm uninstall my-jenkins
+
+kubectl edit svc my-jenkins
+
+
+to edit file 
+export EDITOR=nano
